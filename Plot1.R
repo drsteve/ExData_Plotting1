@@ -1,4 +1,4 @@
-# https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+#Data downloaded from https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
 
 #read data and
 #convert date field to date datatype
@@ -26,7 +26,11 @@ makePlot <- function(indata, ...) {
 
 ##Now run the thing...
 usedata <- getData()
+##Make labels
 title <- "Global Active Power"
 xunits <- "(kilowatts)"
 xlabel <- paste(title, xunits)
+##Draw figure
+png('Plot1.png') #open new PNG output graphics device
 makePlot(usedata$Global_active_power, col='red', xlab=xlabel, main=title)
+dev.off() #close current output graphics device
