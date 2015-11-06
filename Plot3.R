@@ -18,15 +18,20 @@ getData <- function() {
 
 ##Now the data prep is done, make the plot (callable so the file can be sourced
 ##and the function can be used separately...
-makePlot <- function(xquan, yquan, ...) {
-    plot(xquan, yquan, ...)
+makePlot <- function(indata, ...) {
+    times <- indata$DateTime
+    plot(times, indata$Sub_metering_1, ...)
+    lines(times, indata$Sub_metering_2, col='red')
+    lines(times, indata$Sub_metering_3, col='blue')
+    legend('topright', c("Sub_metering_1","Sub_metering_2","Sub_metering_3") , 
+           lty=1, col=c('black', 'red', 'blue') )
 }
 
 ##Now run the thing...
 usedata <- getData()
 ##Make labels
-ylabel <- "Global Active Power (kilowatts)"
+ylabel <- "Energy sub metering"
 ##Draw figure
-png('Plot2.png', bg='transparent') #open new PNG output graphics device
-makePlot(usedata$DateTime, usedata$Global_active_power, type='l', xlab='',ylab=ylabel)
+png('Plot3.png', bg='transparent') #open new PNG output graphics device
+makePlot(usedata, type='l', xlab='',ylab=ylabel)
 dev.off() #close current output graphics device
