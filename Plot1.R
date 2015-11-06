@@ -11,10 +11,6 @@ getData <- function() {
     d2 <- "2/2/2007"
     #cut down to only required indices
     subdata <- subset(powerdata, powerdata$Date==d1 | powerdata$Date==d2)
-    #add POSIXct times to data.table (not necessary for Plot1, but ideally I'd have one read function used
-    #by all the plots for this time period...)
-    subdata[, as.POSIXct(strptime(paste(subdata$Date, subdata$Time), '%d/%m/%Y %H:%M:%S'))]
-    #strptime is about 8x faster than as.Date
     return(subdata)
 }
 
