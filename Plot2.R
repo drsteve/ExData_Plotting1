@@ -28,6 +28,6 @@ usedata <- getData()
 ##Make labels
 ylabel <- "Global Active Power (kilowatts)"
 ##Draw figure
-png('Plot2.png') #open new PNG output graphics device
+png('Plot2.png', bg='transparent') #open new PNG output graphics device
 makePlot(usedata$DateTime, usedata$Global_active_power, type='l', xlab='',ylab=ylabel)
 dev.off() #close current output graphics device

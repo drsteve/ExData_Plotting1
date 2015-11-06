@@ -15,7 +15,7 @@ getData <- function() {
 }
 
 ##Now the data prep is done, make the plot (callable so the file can be sourced
-##and the function can be used separately...
+##and the function can be used separately...)
 makePlot <- function(indata, ...) {
     hist(indata, ...)
 }
@@ -27,6 +27,6 @@ title <- "Global Active Power"
 xunits <- "(kilowatts)"
 xlabel <- paste(title, xunits)
 ##Draw figure
-png('Plot1.png') #open new PNG output graphics device
+png('Plot1.png', bg='transparent') #open new PNG output graphics device
 makePlot(usedata$Global_active_power, col='red', xlab=xlabel, main=title)
 dev.off() #close current output graphics device
