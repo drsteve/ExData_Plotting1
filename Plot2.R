@@ -1,4 +1,5 @@
 #Data downloaded from https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+#Unzip to local folder
 
 #read data and
 #convert date field to date datatype
@@ -22,7 +23,7 @@ makePlot <- function(xquan, yquan, ...) {
     plot(xquan, yquan, ...)
 }
 
-##Now run the thing...
+##Now run everything...
 usedata <- getData()
 ##Make labels
 ylabel <- "Global Active Power (kilowatts)"

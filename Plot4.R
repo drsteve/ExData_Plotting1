@@ -1,12 +1,13 @@
 #Data downloaded from https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+#Unzip in local folder
 
 #read data and
 #convert date field to date datatype
 require(data.table)
 getData <- function() {
     powerdata <- data.table::fread('household_power_consumption.txt', na.strings='?')
-    #Plot 2 is a time series of the power on 2 days: 2007-02-01 and 2007-02-02
-    #so select just these days and then convert to dates/times
+    #Plot 4 is a four-panel plot, collecting the previous plots, but we still only use
+    #2007-02-01 and 2007-02-02, so select just these days and then convert to dates/times
     d1 <- "1/2/2007"
     d2 <- "2/2/2007"
     #cut down to only required indices
@@ -32,7 +33,7 @@ makePlot <- function(indata, ...) {
     })
 }
 
-##Now run the thing...
+##Now run everything...
 usedata <- getData()
 ##Make labels
 ylabel <- "Energy sub metering"
