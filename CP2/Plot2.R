@@ -13,11 +13,15 @@ idx <- which(names(pm25_fips)==Baltimore)
 baltData <- pm25_fips[[idx]]
 totEmissions <- aggregate(baltData$Emissions, list(year = baltData$year), sum)
 
+em99 <- totEmissions$x[totEmissions$year==1999]
+em08 <- totEmissions$x[totEmissions$year==2008]
+
 png('Plot2.png')
 # Now plot the total emissions by year
-plot(totEmissions$year, totEmissions$x/1e3, type='l',
+plot(totEmissions$year, totEmissions$x/1e3, type='l', lty=2, xaxt = 'n',
      xlab='Year', ylab='Total PM2.5 Emission [1000s tons]') #line plot
-points(totEmissions$year, totEmissions$x/1e3) #add markers so we can see where the data are
+axis(1, at=seq(1999,2008,by=1))
+points(c(1999, 2008), c(em99/1e3, em08/1e3), col='red', pch=19) #colour '99 and '08 red to higlight years
 # add title
-title(main='PM-2.5 Emission\nBaltimore City, MD')
+title(main='PM-2.5 Emission 1999-2008\nBaltimore City, MD')
 dev.off()
