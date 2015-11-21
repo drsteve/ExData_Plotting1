@@ -17,17 +17,24 @@ pm25_fips <- split(pm25, pm25$fips)
 idx <- which(names(pm25_fips)==Baltimore)
 
 baltData <- pm25_fips[[idx]]
-totEmitByType <- aggregate(baltData$Emissions, list(Year = baltData$year, SourceType=baltData$type), sum)
+totEmitByType <- aggregate(baltData$Emissions, list(Year = baltData$year, Type=baltData$type), sum)
 repl_x <- which(names(totEmitByType)=='x')
 names(totEmitByType)[repl_x] <- 'Emissions'
 
+ptheme <- theme(panel.grid.minor = element_line(colour="white", size=0.3),
+                axis.text = element_text(color="grey20", size=13),
+                axis.title = element_text(color="grey20", size=13),
+                axis.ticks = element_line(size = 1.0),
+                panel.border = element_rect(fill=NA, size=0.75, colour = "grey20"))
+
 #now make line plots showing time variation for each source
-fig <- ggplot(data=totEmitByType, aes(x=Year, y=Emissions, group = SourceType, colour = SourceType)) +
-       geom_line() +
-       geom_point( size=4, shape=21, fill="white") +
-       ggtitle('PM-2.5 By Source Type\nBaltimore City, MD') +
+fig <- ggplot(data=totEmitByType, aes(x=Year, y=Emissions, group = Type, colour = Type)) +
+       geom_line(linetype=2) +
+       stat_smooth(method = 'lm', se=FALSE, size=1.75) +
+       geom_point(size=2, shape=16) +
+       ggtitle('Linear Trends in PM-2.5 By Source Type\n1999-2008, Baltimore City, MD') +
        ylab('PM-2.5 Emissions [tons]') +
+       ptheme +
        #add minor grid lines to help see increase/decrease
-       theme(panel.grid.minor = element_line(colour="white", size=0.3)) +
        scale_y_continuous(minor_breaks = seq(0 , 3000, 125))
-ggsave(filename='Plot3.png', plot=fig) #write to PNG
+ggsave(filename='Plot3.png', plot=fig, dpi=72, height=6.67, width=6.67, units="in") #write to PNG ()
